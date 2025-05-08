@@ -1,0 +1,38 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+
+# Virtualenvs
+.venv/
+env/
+venv/
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# OS + Editor trash
+.DS_Store
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Build/output
+dist/
+build/
+*.zip
+
+# AWS credentials (just in case)
+*.pem
+*.key
+*.crt
+*.env
+
+scripts/
