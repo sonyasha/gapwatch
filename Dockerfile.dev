@@ -1,0 +1,10 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install linting and formatting tools
+COPY requirements-lint.txt .
+RUN pip install --no-cache-dir -r requirements-lint.txt
+
+# Default to interactive shell
+CMD ["bash"]

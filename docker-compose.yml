@@ -1,0 +1,40 @@
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data"
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodb_data:/home/dynamodblocal/data
+    working_dir: /home/dynamodblocal
+    user: root
+
+  notebook:
+    build:
+      context: ./notebooks
+    volumes:
+      - ./notebooks:/app
+      - ./ingestion:/app/ingestion
+    ports:
+      - "8888:8888"
+    working_dir: /app
+    environment:
+      - AWS_ACCESS_KEY_ID=fake
+      - AWS_SECRET_ACCESS_KEY=fake
+      - DYNAMODB_HOST=http://dynamodb-local:8000
+      - NEWS_API_KEY=${NEWS_API_KEY}
+      - AWS_REGION=${AWS_REGION}
+    depends_on:
+      - dynamodb-local
+
+  lint:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+    working_dir: /app
+
+volumes:
+  dynamodb_data:
