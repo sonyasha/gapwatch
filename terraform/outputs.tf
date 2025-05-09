@@ -9,3 +9,8 @@ output "ecr_repository_url" {
 output "lambda_function_name" {
   value = module.ingestion_lambda.lambda_name
 }
+
+output "cloudwatch_schedule" {
+  description = "The EventBridge schedule expression"
+  value       = module.eventbridge.schedule_expression
+}

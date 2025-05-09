@@ -44,3 +44,10 @@ module "ingestion_lambda" {
   image_uri    = var.image_uri
   news_api_key = var.news_api_key
 }
+
+module "eventbridge" {
+  source        = "./modules/eventbridge"
+  lambda_arn    = module.ingestion_lambda.lambda_arn
+  lambda_name   = module.ingestion_lambda.lambda_name
+  schedule_expr = "rate(1 day)"
+}
